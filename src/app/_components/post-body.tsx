@@ -9,8 +9,13 @@ export function PostBody({ content }: Props) {
     <div className="max-w-2xl mx-auto">
       <div
         className={markdownStyles["markdown"]}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      >
+        <pre>
+          <code
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </pre>
+      </div>
     </div>
   );
 }

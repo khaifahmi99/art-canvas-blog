@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  PoemTopicQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: PoemTopicQueue
+Outputs:
+  QueueName: 
+    Value: !GetAtt PoemTopicQueue.QueueName
+  QueueUrl:
+    Value: !Ref PoemTopicQueue 
+  QueueArn:
+    Value: !GetAtt PoemTopicQueue.Arn
+

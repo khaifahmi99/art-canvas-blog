@@ -38,10 +38,10 @@ additional_info = {
   'coverImage': f'https://source.unsplash.com/collection/random/1920x1080/?{tags[0]}',
   'author': {
     'name': 'Blue Inkwell Jr.',
-    'picture': "https://source.unsplash.com/a-woman-in-a-yellow-shirt-and-black-pants-rdHrrFA1KKg"
+    'picture': "/assets/blog/authors/blueinkwell.jpeg"
   },
   'ogImage': {
-    'url': "https://source.unsplash.com/a-woman-in-a-yellow-shirt-and-black-pants-rdHrrFA1KKg"
+    'url': f"https://source.unsplash.com/collection/random/1920x1080/?{tags[0]}"
   }
 }
 

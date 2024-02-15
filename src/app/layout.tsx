@@ -58,6 +58,19 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={inter.className}>
+        <div style={{
+            top: 0,
+            position: 'fixed',
+            width: '100vw',
+            height: '100vh',
+
+            backgroundColor: '#e5e5f7',
+            opacity: '0.8',
+            backgroundImage: 'radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px)',
+            backgroundSize: '10px 10px',
+
+            zIndex: -1
+        }}></div>
         <div className="min-h-screen">{children}</div>
         <Footer />
         <Analytics />

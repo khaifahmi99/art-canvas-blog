@@ -8,6 +8,7 @@ import Container from "../../_components/container";
 import Header from "../../_components/header";
 import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
+import { PostFooter } from "@/app/_components/post-footer";
 
 export default async function Post({ params }: Params) {
   const post = getPostBySlug(params.slug);
@@ -31,6 +32,7 @@ export default async function Post({ params }: Params) {
             author={post.author}
           />
           <PostBody content={content} />
+          <PostFooter tags={post.tags ?? []} />
         </article>
       </Container>
     </main>

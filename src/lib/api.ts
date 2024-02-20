@@ -15,7 +15,16 @@ export function getPostBySlug(slug: string) {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
-  const tags = data.tags ?? [];
+  console.log(data.tags);
+
+  const tags: string[] = [];
+
+  if (Array.isArray(data.tags)) {
+    tags.push(...data.tags);
+  } else {
+    const parsedTags = (data.tags as string).split(",");
+    tags.push(...parsedTags);
+  }
 
   return { ...data, slug: realSlug, content, tags } as Post;
 }

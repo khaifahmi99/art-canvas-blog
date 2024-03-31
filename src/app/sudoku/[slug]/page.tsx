@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Container from "../../_components/container";
 import Header from "../../_components/header";
 import { SudokuBody } from "../../_components/sudoku-body";
+import { SudokuHeader } from "../../_components/sudoku-header";
 
 export default async function Sudoku({ params }: Params) {
   const sudoku = getSudokuBySlug(params.slug);
@@ -19,7 +20,7 @@ export default async function Sudoku({ params }: Params) {
       <Container>
         <Header />
         <article className="mb-32">
-          <h1 className="mb-4 text-3xl font-bold tracking-tight">{date.toDateString()}</h1>
+          <SudokuHeader title={date.toDateString()} author={sudoku.author} />
           <SudokuBody rows={rows} />
         </article>
       </Container>

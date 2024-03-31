@@ -13,8 +13,6 @@ export function SudokuBody({ rows }: Props) {
           const colN = i % 9;
           const rowN = Math.floor(i / 9);
 
-          console.log(colN, rowN);
-
           const borderBottom = rowN === 2 || rowN === 5 || rowN === 8 ? 'border-b-4 border-slate-500' : 'border-b-2 border-slate-400';
           const borderRight = colN === 2 || colN === 5 || colN === 8 ? 'border-r-4 border-slate-500' : 'border-r-2 border-slate-400';
 

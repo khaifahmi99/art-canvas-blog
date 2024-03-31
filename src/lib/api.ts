@@ -1,12 +1,18 @@
 import { Post } from "@/interfaces/post";
+import { Sudoku } from "@/interfaces/sudoku";
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
 
 const postsDirectory = join(process.cwd(), "_posts");
+const sudokuDirectory = join(process.cwd(), "_sudoku");
 
 export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
+}
+
+export function getSudokuSlugs() {
+  return fs.readdirSync(sudokuDirectory);
 }
 
 export function getPostBySlug(slug: string) {
@@ -27,6 +33,15 @@ export function getPostBySlug(slug: string) {
   return { ...data, slug: realSlug, content, tags } as Post;
 }
 
+export function getSudokuBySlug(slug: string) {
+  const realSlug = slug.replace(/\.md$/, "");
+  const fullPath = join(sudokuDirectory, `${realSlug}.md`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const { data } = matter(fileContents);
+
+  return data as Sudoku;
+}
+
 export function getAllPosts(): Post[] {
   const slugs = getPostSlugs();
   const posts = slugs
@@ -34,4 +49,10 @@ export function getAllPosts(): Post[] {
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
+}
+
+export function getAllSudokues(): Sudoku[] {
+  const slugs = getSudokuSlugs();
+  const sudokus = slugs.map((slug) => getSudokuBySlug(slug));
+  return sudokus;
 }

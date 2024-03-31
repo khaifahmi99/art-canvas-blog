@@ -15,17 +15,23 @@ export function SudokuBody({ rows }: Props) {
 
           console.log(colN, rowN);
 
-          const borderBottom = rowN === 2 || rowN === 5 || rowN === 8 ? 'border-b-4' : 'border-b-2';
-          const borderRight = colN === 2 || colN === 5 || colN === 8 ? 'border-r-4' : 'border-r-2';
+          const borderBottom = rowN === 2 || rowN === 5 || rowN === 8 ? 'border-b-4 border-slate-500' : 'border-b-2 border-slate-400';
+          const borderRight = colN === 2 || colN === 5 || colN === 8 ? 'border-r-4 border-slate-500' : 'border-r-2 border-slate-400';
 
-          const borderClasses = `border-slate-400 ${borderBottom} ${borderRight}`;
+          const borderClasses = `${borderBottom} ${borderRight}`;
 
+          let cellBody;
+          if (cell === 0) {
+            cellBody = <input type="text" className="w-8 ml-3 text-center bg-white/50" />;
+          } else {
+            cellBody = <span className="w-full">{cell}</span>
+          }
           return (
             <div
               className={`flex items-center p-1 text-center text-xl w-16 h-16 mx-auto ${borderClasses}`}
               key={i}
             >
-              <span className="w-full">{cell === 0 ? '' : cell}</span>
+              {cellBody}
             </div>
           )
         })}

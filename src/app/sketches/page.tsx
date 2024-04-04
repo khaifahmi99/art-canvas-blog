@@ -39,7 +39,7 @@ export default async function Sketches() {
   );
 }
 
-export const getImages = cache(async (limit = 20) => {
+const getImages = cache(async (limit = 20) => {
   const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/lightning?limit=${limit}`)
  
   if (!res.ok) {

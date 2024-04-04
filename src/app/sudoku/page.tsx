@@ -1,16 +1,19 @@
-import { getPaginatedSudokues } from "@/lib/api";
+import { getPaginatedSudokues, getTotalSudoku } from "@/lib/api";
 import Header from "../_components/header";
 import Container from "../_components/container";
 import { Sudoku } from "@/interfaces/sudoku";
 import Link from "next/link";
 import { SUDOKU_PAGE_SIZE } from "../_constant/pagination";
+import Pagination from "../_components/pagination";
 
 export default async function SudokuList({
   searchParams,
 }: Props) {
   const page = Number(searchParams?.page) || 1;
-  console.log(page);
   const sudokus = getPaginatedSudokues(page, SUDOKU_PAGE_SIZE);
+  const totalSudokus = getTotalSudoku();
+
+  const hasNextPage = page * SUDOKU_PAGE_SIZE < totalSudokus;
 
   const groups = sudokus.reduce((acc, sudoku) => {
     const date = new Date(sudoku.date).toDateString();
@@ -44,6 +47,7 @@ export default async function SudokuList({
                 ))}
             </div>
           ))}
+          <Pagination page={page} hasPreviousPage={page > 1} hasNextPage={hasNextPage} />
         </article>
       </Container>
     </main>

@@ -7,6 +7,12 @@ module.exports = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'db7xy78dts6xn.cloudfront.net',
+        port: '',
+        pathname: '/lightning/**',
+      },
     ],
   },
 }

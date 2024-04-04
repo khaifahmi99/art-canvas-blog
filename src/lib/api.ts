@@ -11,8 +11,16 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
+export function getTotalPost() {
+  return getPostSlugs().length;
+}
+
 export function getSudokuSlugs() {
   return fs.readdirSync(sudokuDirectory);
+}
+
+export function getTotalSudoku() {
+  return getSudokuSlugs().length;
 }
 
 export function getPostBySlug(slug: string) {
@@ -46,13 +54,27 @@ export function getAllPosts(): Post[] {
   const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
-    // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
 }
 
 export function getAllSudokues(): Sudoku[] {
   const slugs = getSudokuSlugs();
-  const sudokus = slugs.map((slug) => getSudokuBySlug(slug));
+  const sudokus = slugs
+    .map((slug) => getSudokuBySlug(slug))
+    .sort((a, b) => a.date > b.date ? -1 : 1);
   return sudokus;
+}
+
+export function getPaginatedSudokues(page: number = 1, pageSize: number = 20): Sudoku[] {
+  if (page <= 0) {
+    page = 1;
+  }
+
+  if (pageSize <= 0) {
+    pageSize = 20;
+  }
+
+  const all = getAllSudokues();
+  return all.slice((page - 1) * pageSize, page * pageSize);
 }

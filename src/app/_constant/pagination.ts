@@ -1,0 +1,1 @@
+export const SUDOKU_PAGE_SIZE = 12;

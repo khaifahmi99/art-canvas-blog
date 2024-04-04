@@ -19,7 +19,7 @@ export default async function Post({ params }: Params) {
   return (
     <main>
       <Container>
-        <Header />
+        <Header category="poem" />
         <article className="mb-32">
           <PostHeader
             title={post.title}

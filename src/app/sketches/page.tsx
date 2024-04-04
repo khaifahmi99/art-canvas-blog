@@ -22,8 +22,8 @@ export default async function Sketches() {
   return (
     <main>
       <Container>
-        <Header />
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <Header category='sketch'/>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mb-16">
           {images.map((image) => (
             <Image
               alt={image.alt}

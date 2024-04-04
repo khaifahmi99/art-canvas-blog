@@ -18,7 +18,7 @@ export default async function Sudoku({ params }: Params) {
   return (
     <main>
       <Container>
-        <Header />
+        <Header category="sudoku" />
         <article className="mb-32">
           <SudokuHeader title={date.toDateString()} author={sudoku.author} />
           <SudokuBody rows={rows} />

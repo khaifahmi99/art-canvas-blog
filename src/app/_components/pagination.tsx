@@ -22,23 +22,27 @@ export default function Pagination({ page: pageArg, hasNextPage, hasPreviousPage
     replace(`${pathname}?${params.toString()}`);
   }
 
-  const activeClasses = 'text-black';
-  const inactiveClasses = 'text-gray-500';
+  const activeClasses = 'text-white hover:bg-indigo-700';
+  const inactiveClasses = 'text-indigo-300';
  
   return (
-    <div className="flex justify-between w-1/2 mx-auto">
+    <div className="flex justify-between text-lg w-1/3 mx-auto bg-indigo-800 rounded-lg">
       <button
-        className={`text-sm ${hasPreviousPage ? activeClasses : inactiveClasses}`}
-        onClick={() => handleClick('previous')}
+        className={`bg-indigo-600 py-2 px-4 rounded-l-lg ${hasPreviousPage ? activeClasses : inactiveClasses}`}
+        onClick={() => {
+          if (hasPreviousPage) handleClick('previous')
+        }}
       >
-        Previous
+        «
       </button>
-      <span className='text-lg'>··· Page {page} ···</span>
+      <span className='text-white py-2'>Page {page}</span>
       <button
-        className={`text-sm ${hasNextPage ? activeClasses : inactiveClasses}`}        
-        onClick={() => handleClick('next')}
+        className={`bg-indigo-600  py-2 px-4 rounded-r-lg ${hasNextPage ? activeClasses : inactiveClasses}`}        
+        onClick={() => {
+          if (hasNextPage) handleClick('next')
+        }}
       >
-        Next
+        »
       </button>
     </div>
   );

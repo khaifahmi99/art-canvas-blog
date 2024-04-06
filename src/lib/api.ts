@@ -69,6 +69,19 @@ export function getAllPosts(): Post[] {
   return posts;
 }
 
+export function getPaginatedPosts(page: number = 1, pageSize: number = 20): Post[] {
+  if (page <= 0) {
+    page = 1;
+  }
+
+  if (pageSize <= 0) {
+    pageSize = 20;
+  }
+
+  const all = getAllPosts();
+  return all.slice((page - 1) * pageSize, page * pageSize);
+}
+
 export function getAllSudokues(): Sudoku[] {
   const slugs = getSudokuSlugs();
   const sudokus = slugs

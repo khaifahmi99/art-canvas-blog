@@ -3,10 +3,11 @@ import { cache } from 'react'
 import Image, { ImageProps } from "next/image";
 import Container from "../_components/container";
 import Header from "../_components/header";
+import { SKETCH_PAGE_SIZE } from '../_constant/pagination';
 
-export default async function Sketches() {
-  // TODO: Implement infinite scrolling
-  const props = await getImages(12);
+export default async function Sketches({ searchParams }: Props) {
+  const page = Number(searchParams?.page) || 1;
+  const props = await getImages(page);
 
   const url = "https://db7xy78dts6xn.cloudfront.net/lightning/";
 
@@ -39,8 +40,8 @@ export default async function Sketches() {
   );
 }
 
-const getImages = cache(async (limit = 20) => {
-  const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/lightning?limit=${limit}`)
+const getImages = cache(async (page = 1) => {
+  const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/lightning?page=${page}&pageSize=${SKETCH_PAGE_SIZE}`)
  
   if (!res.ok) {
     throw new Error('Failed to fetch data')
@@ -51,3 +52,9 @@ const getImages = cache(async (limit = 20) => {
 
   return images
 })
+
+interface Props {
+  searchParams?: {
+    page?: string;
+  }
+}

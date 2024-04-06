@@ -4,9 +4,15 @@ import Image, { ImageProps } from "next/image";
 import Container from "../_components/container";
 import Header from "../_components/header";
 import { SKETCH_PAGE_SIZE } from '../_constant/pagination';
+import { getTotalSketches } from '@/lib/api';
+import Pagination from '../_components/pagination';
 
 export default async function Sketches({ searchParams }: Props) {
   const page = Number(searchParams?.page) || 1;
+  const totalSketches = await getTotalSketches();
+
+  const hasNextPage = page * SKETCH_PAGE_SIZE < totalSketches;
+
   const props = await getImages(page);
 
   const url = "https://db7xy78dts6xn.cloudfront.net/lightning/";
@@ -24,17 +30,20 @@ export default async function Sketches({ searchParams }: Props) {
     <main>
       <Container>
         <Header category='sketch'/>
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mb-16">
-          {images.map((image) => (
-            <Image
-              alt={image.alt}
-              className="hover:scale-110 transition duration-200 ease-in-out 
-                rounded-lg mb-2 brightness-75 contrast-125 hover:brightness-100"
-              src={image.src}
-              width={image.width}
-              height={image.height} />
-          ))}
-        </div>
+        <article className="mb-32">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mb-16">
+            {images.map((image) => (
+              <Image
+                alt={image.alt}
+                className="hover:scale-110 transition duration-200 ease-in-out 
+                  rounded-lg mb-2 brightness-75 contrast-125 hover:brightness-100"
+                src={image.src}
+                width={image.width}
+                height={image.height} />
+            ))}
+          </div>
+          <Pagination page={page} hasPreviousPage={page > 1} hasNextPage={hasNextPage} />
+        </article>
       </Container>
     </main>
   );

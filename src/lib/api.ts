@@ -23,6 +23,17 @@ export function getTotalSudoku() {
   return getSudokuSlugs().length;
 }
 
+export async function getTotalSketches() {
+  const res = await fetch('https://inference-logs.khaifahmi99.workers.dev/lightning/count');
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  const body = await res.json();
+  return body.count;
+}
+
 export function getPostBySlug(slug: string) {
   const realSlug = slug.replace(/\.md$/, "");
   const fullPath = join(postsDirectory, `${realSlug}.md`);

@@ -50,7 +50,9 @@ export default async function Sketches({ searchParams }: Props) {
 }
 
 const getImages = async (page = 1) => {
-  const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/lightning?page=${page}&pageSize=${SKETCH_PAGE_SIZE}`)
+  const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/lightning?page=${page}&pageSize=${SKETCH_PAGE_SIZE}`, {
+    cache: 'no-store',
+  })
  
   if (!res.ok) {
     throw new Error('Failed to fetch data')

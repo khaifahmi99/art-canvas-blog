@@ -31,7 +31,7 @@ export default async function Sketches({ searchParams }: Props) {
       <Container>
         <Header category='sketch'/>
         <article className="mb-32">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mb-16">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 mb-16">
             {images.map((image) => (
               <Image
                 alt={image.alt}
@@ -49,7 +49,7 @@ export default async function Sketches({ searchParams }: Props) {
   );
 }
 
-const getImages = cache(async (page = 1) => {
+const getImages = async (page = 1) => {
   const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/lightning?page=${page}&pageSize=${SKETCH_PAGE_SIZE}`)
  
   if (!res.ok) {
@@ -60,7 +60,7 @@ const getImages = cache(async (page = 1) => {
   const images = imageObjects.map(img => img.imgId);
 
   return images
-})
+}
 
 interface Props {
   searchParams?: {

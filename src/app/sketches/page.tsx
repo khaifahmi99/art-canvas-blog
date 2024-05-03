@@ -1,5 +1,3 @@
-import { cache } from 'react'
-
 import Image, { ImageProps } from "next/image";
 import Container from "../_components/container";
 import Header from "../_components/header";
@@ -31,7 +29,7 @@ export default async function Sketches({ searchParams }: Props) {
       <Container>
         <Header category='sketch'/>
         <article className="mb-32">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 mb-16">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 mb-16">
             {images.map((image) => (
               <Image
                 alt={image.alt}

@@ -30,7 +30,7 @@ export default async function Foods({ searchParams }: Props) {
       <Container>
         <Header category='food'/>
         <article className="mb-32">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 mb-16">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 mb-16">
             {images.map((image) => (
               <Image
                 alt={image.alt}

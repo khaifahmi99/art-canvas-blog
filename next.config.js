@@ -13,6 +13,12 @@ module.exports = {
         port: '',
         pathname: '/lightning/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'd3ae3kedxtitrj.cloudfront.net',
+        port: '',
+        pathname: '/food/**',
+      }
     ],
   },
 }

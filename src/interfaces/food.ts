@@ -6,7 +6,7 @@ export type Food = {
   city: string;
   country: string;
   
-  restaurantName: string;
+  restaurantName?: string;
 
   createdAt: string;
   capturedOn: string;

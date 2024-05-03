@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Navbar from "./navbar";
 
+export type Category = 'poem' | 'sudoku' | 'food' | 'sketch';
+
 interface Props {
-  category: 'poem' | 'sudoku' | 'sketch';
+  category: Category;
 }
 
 const Header = ({ category }: Props) => {

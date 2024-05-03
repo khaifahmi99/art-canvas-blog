@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { Category } from "./header";
 
 interface Props {
-  active: 'poem' | 'sudoku' | 'sketch';
+  active: Category;
 }
 
 const items = [
@@ -19,6 +20,11 @@ const items = [
     title: 'Sketch',
     href: '/sketches',
     compareValue: 'sketch',
+  },
+  {
+    title: 'Food',
+    href: '/food',
+    compareValue: 'food',
   }
 ]
 
@@ -27,7 +33,6 @@ const Navbar = ({ active }: Props) => {
     <div className="flex flex-row space-x-4 text-lg">
       {items.map(item => {
         return (
-          // TODO: change to Link
           <Link href={item.href} key={item.href} className={active === item.compareValue ? 'font-bold text-indigo-800 px-2' : 'px-2'}>
             {item.title}
           </Link>

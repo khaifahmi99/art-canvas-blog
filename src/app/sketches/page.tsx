@@ -34,7 +34,7 @@ export default async function Sketches({ searchParams }: Props) {
               <Image
                 alt={image.alt}
                 className="hover:scale-110 transition duration-200 ease-in-out 
-                  rounded-lg mb-2 brightness-75 contrast-125 hover:brightness-100"
+                  rounded-lg mb-2"
                 src={image.src}
                 width={image.width}
                 height={image.height} />

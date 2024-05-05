@@ -5,6 +5,7 @@ import { FOOD_PAGE_SIZE } from '../_constant/pagination';
 import { getTotalFoods } from '@/lib/api';
 import Pagination from '../_components/pagination';
 import { Food } from '@/interfaces/food';
+import { getPlaiceholder } from "plaiceholder";
 
 interface FoodWithImage {
   food: Food,
@@ -20,21 +21,32 @@ export default async function Foods({ searchParams }: Props) {
   const props = await getFoods(page);
 
   const url = "https://d3ae3kedxtitrj.cloudfront.net/food/";
+  const blurUrl = `${url}placeholder/`
 
-  const foods: FoodWithImage[] = props.map((food, i) => ({
-    image: {
-      id: `${i}`,
-      src: `${url}${food.images}`,
-      alt: "sketch",
-      public_id: food.images,
-      height: 512,
-      width: 512,
-    },
-    food: {
-      ...food,
-      images: [food.images],
-    },
+  const foodsPromise: Promise<FoodWithImage[]> = Promise.all(props.map(async (food, i) => {
+    const blurImage = `${blurUrl}${food.images}`
+    const res = await fetch(blurImage);
+    const buffer = Buffer.from(await res.arrayBuffer());
+    const { base64: blurBase64 } = await getPlaiceholder(buffer);
+
+    return {
+      image: {
+        id: `${i}`,
+        src: `${url}${food.images}`,
+        blurDataURL: blurBase64,
+        public_id: food.images,
+        height: 852,
+        width: 640,
+        alt: `food_${food.id}`,
+      },
+      food: {
+        ...food,
+        images: [food.images],
+      },
+    }
   }));
+
+  const foods = await foodsPromise;
 
   return (
     <main>
@@ -43,13 +55,15 @@ export default async function Foods({ searchParams }: Props) {
         <article className="mb-32">
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 mb-16">
             {foods.map(({food, image}) => (
-              <div className='relative'>
+              <div className='relative' key={food.id}>
                 <Image
                   alt={image.alt}
                   className="rounded-lg mb-2 hover:brightness-50"
                   src={image.src}
                   width={image.width}
-                  height={image.height} 
+                  height={image.height}
+                  placeholder="blur"
+                  blurDataURL={image.blurDataURL}
                 />
                 <div className='absolute top-2 right-2 bg-opacity-50 bg-indigo-700 rounded-lg px-2 text-white cursor-default pointer-events-none'>
                   📸 {food.capturedOn}

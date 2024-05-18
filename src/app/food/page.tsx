@@ -113,7 +113,7 @@ const getFoods = async (pageNumber = 1) => {
 
   const startIndex = (pageNumber - 1) * FOOD_PAGE_SIZE;
   const endIndex = pageNumber * FOOD_PAGE_SIZE;
-  const foodRecords: Food[] = (rawFoods.foods as RawFood[]).slice(startIndex, endIndex).map((rawFood, i) => ({
+  const foodRecords: Food[] = (rawFoods.foods as RawFood[]).reverse().slice(startIndex, endIndex).map((rawFood, i) => ({
     id: `${i}`,
     images: rawFood['Images'],
     cuisine: rawFood['Cuisine'],

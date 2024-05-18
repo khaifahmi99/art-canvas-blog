@@ -8,6 +8,6 @@ export type Food = {
   
   restaurantName?: string;
 
-  createdAt: string;
+  createdAt?: string;
   capturedOn: string;
 }

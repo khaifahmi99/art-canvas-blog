@@ -93,23 +93,59 @@ export default async function Foods({ searchParams }: Props) {
   );
 }
 
-const getFoods = async (page = 1) => {
-  const res = await fetch(`https://inference-logs.khaifahmi99.workers.dev/food?page=${page}&pageSize=${FOOD_PAGE_SIZE}`, {
+const getFoods = async (pageNumber = 1) => {
+  if (pageNumber < 1) {
+    return []
+  }
+
+  const res = await fetch('https://raw.githubusercontent.com/khaifahmi99/art-canvas-blog/main/public/assets/food/main.json', {
     cache: 'no-store',
   })
  
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
- 
-  const foodRecords: Food[] = await res.json();
+
+  const rawFoods = await res.json();
+  if (pageNumber * FOOD_PAGE_SIZE > rawFoods.foods.length) {
+    return []
+  }
+
+  const startIndex = (pageNumber - 1) * FOOD_PAGE_SIZE;
+  const endIndex = pageNumber * FOOD_PAGE_SIZE;
+  const foodRecords: Food[] = (rawFoods.foods as RawFood[]).slice(startIndex, endIndex).map((rawFood, i) => ({
+    id: `${i}`,
+    images: rawFood['Images'],
+    cuisine: rawFood['Cuisine'],
+    description: rawFood['Description'],
+    city: rawFood['Restaurant City'],
+    country: rawFood['Restaurant Country'],
+
+    restaurantName: rawFood['Restaurant Name'] ?? undefined,
+
+    capturedOn: rawFood['Captured on'],
+    createdAt: rawFood['Date'] ?? undefined,
+  }));
+
   return foodRecords.map(food => ({
     ...food,
     images: food.images[0],
-    // FIXME: The DB should not store 'nan'
-    restaurantName: food.restaurantName === 'nan' ? undefined : food.restaurantName,
   }))
 
+}
+
+interface RawFood {
+  "Images": string[];
+  "Restaurant Name": string | null;
+  "Cuisine": string[];
+  "Description": string;
+  "Restaurant City": string;
+  "Restaurant Country": string;
+  "Restaurant Coordinates": string | null;
+  "Restaurant Link": string | null;
+  "Captured on": string;
+  "Date": string | null;
+  "Set": string;
 }
 
 interface Props {

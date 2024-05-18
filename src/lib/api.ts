@@ -105,12 +105,12 @@ export function getPaginatedSudokues(page: number = 1, pageSize: number = 20): S
 }
 
 export async function getTotalFoods() {
-  const res = await fetch('https://inference-logs.khaifahmi99.workers.dev/food/count');
+  const res = await fetch('https://raw.githubusercontent.com/khaifahmi99/art-canvas-blog/main/public/assets/food/main.json');
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
 
   const body = await res.json();
-  return body.count;
+  return body.foods.length;
 }

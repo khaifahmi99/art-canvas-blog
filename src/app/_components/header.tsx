@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Navbar from "./navbar";
 
-export type Category = 'poem' | 'sudoku' | 'food' | 'sketch';
+export type Category = 'poem' | 'sudoku' | 'sketch';
 
 interface Props {
   category: Category;

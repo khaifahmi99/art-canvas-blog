@@ -1,4 +1,3 @@
-import { Food } from "@/interfaces/food";
 import { Post } from "@/interfaces/post";
 import { Sudoku } from "@/interfaces/sudoku";
 import fs from "fs";
@@ -102,15 +101,4 @@ export function getPaginatedSudokues(page: number = 1, pageSize: number = 20): S
 
   const all = getAllSudokues();
   return all.slice((page - 1) * pageSize, page * pageSize);
-}
-
-export async function getTotalFoods() {
-  const res = await fetch('https://raw.githubusercontent.com/khaifahmi99/art-canvas-blog/main/public/assets/food/main.json');
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-
-  const body = await res.json();
-  return body.foods.length;
 }

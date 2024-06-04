@@ -12,12 +12,6 @@ module.exports = {
         hostname: 'db7xy78dts6xn.cloudfront.net',
         port: '',
         pathname: '/lightning/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'd3ae3kedxtitrj.cloudfront.net',
-        port: '',
-        pathname: '/food/**',
       }
     ],
   },

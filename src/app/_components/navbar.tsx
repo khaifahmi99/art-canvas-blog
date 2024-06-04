@@ -20,11 +20,6 @@ const items = [
     title: 'Sketch',
     href: '/sketches',
     compareValue: 'sketch',
-  },
-  {
-    title: 'Food',
-    href: '/food',
-    compareValue: 'food',
   }
 ]
 
